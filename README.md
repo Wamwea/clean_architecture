@@ -11,6 +11,10 @@ The user can choose to save articles on the local device.
 
 ## Screenshots (WIP)
 ## dark theme
-![Capture](https://user-images.githubusercontent.com/47742225/165866705-bdd88644-121b-48fd-b717-2da2a0d09498.JPG)
+
+![Screenshot_1651239654](https://user-images.githubusercontent.com/47742225/165956039-06272d7b-505e-4902-94e1-e59703bf22fe.png)
+
 ## light theme
-![Capture](https://user-images.githubusercontent.com/47742225/165926234-fc514762-aa9f-40bc-8810-bcdca8357f7a.JPG)
+
+![Screenshot_1651239705](https://user-images.githubusercontent.com/47742225/165956115-305e6581-d616-4e5e-9d0f-4698ed4e2840.png)
+
