@@ -1,6 +1,7 @@
 import 'package:clean_architecture/injector.dart' as di;
 import 'package:clean_architecture/presentation/styling/theme_provider.dart';
 import 'package:clean_architecture/presentation/views/home_page.dart';
+import 'package:clean_architecture/presentation/views/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,28 +19,13 @@ void main() async {
           builder: (context) => const MyApp())));
 }
 
-class MyApp extends ConsumerStatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends ConsumerState<MyApp> {
-  @override
-  void initState() {
-    ref.read(darkModeProvider.notifier).getTheme();
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const HomeScreen(),
+    return const MaterialApp(
+      home: SplashScreen(),
     );
   }
 }

@@ -7,7 +7,7 @@ import '../../domain/repositories/local_repository.dart';
 class DarkMode extends StateNotifier<bool> {
   DarkMode() : super(true);
 
-  getTheme() async {
+  Future<void> getTheme() async {
     var response = await locator<LocalRepository>().getTheme();
     response.fold((l) {}, (r) {
       state = r;

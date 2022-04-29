@@ -37,9 +37,8 @@ class HomeScreen extends ConsumerWidget {
           appBar: ref.watch(toggleProvider)
               ? AppBar(
                   automaticallyImplyLeading: false,
-                  backgroundColor: ref.watch(darkModeProvider)
-                      ? Colors.black
-                      : const Color.fromARGB(255, 71, 59, 59),
+                  backgroundColor:
+                      ref.watch(darkModeProvider) ? Colors.black : Colors.teal,
                   title: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
