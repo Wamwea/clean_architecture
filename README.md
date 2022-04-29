@@ -9,6 +9,12 @@ within the application.
 
 The user can choose to save articles on the local device.
 
+## Features(WIP more to be added)
+
+Themes
+Local Storage
+Testing
+
 ## Screenshots (WIP)
 ## dark theme
 
