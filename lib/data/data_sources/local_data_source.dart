@@ -7,7 +7,7 @@ import 'package:hive/hive.dart';
 import '../exceptions.dart';
 
 abstract class LocalDataSource {
-  Future<void> init();
+  Future<Box> init();
   Future<dynamic> getValue(String key);
   Future<void> updateValue(String key, dynamic value);
   Future<void> setValue(String key, dynamic value);
@@ -18,7 +18,7 @@ class LocalDataSourceImplementation implements LocalDataSource {
   LocalDataSourceImplementation({required this.database});
 
   Future<Box> init() async {
-    var box = await Hive.openBox('database');
+    var box = await database.openBox('database');
     return box;
   }
 

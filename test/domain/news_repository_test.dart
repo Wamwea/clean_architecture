@@ -48,6 +48,4 @@ void main() {
               const Left(ConnectionFailure('Failed to connect to network'))));
     });
   });
-
-  group('get local news', () {});
 }

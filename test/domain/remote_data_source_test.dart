@@ -34,7 +34,7 @@ void main() {
     });
 
     test(
-        'should throw am Internet exception when response code is 404 or other',
+        'should throws an Internet exception when response code is 404 or other',
         () {
       //arrange
       client.onGet(

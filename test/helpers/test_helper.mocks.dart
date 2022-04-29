@@ -11,6 +11,8 @@ import 'package:clean_architecture/data/data_sources/remote_data_source.dart'
     as _i10;
 import 'package:clean_architecture/data/failures.dart' as _i8;
 import 'package:clean_architecture/domain/entities/news_object.dart' as _i9;
+import 'package:clean_architecture/domain/repositories/local_repository.dart'
+    as _i15;
 import 'package:clean_architecture/domain/repositories/news_repository.dart'
     as _i6;
 import 'package:dartz/dartz.dart' as _i2;
@@ -438,6 +440,11 @@ class MockLocalDataSource extends _i1.Mock implements _i11.LocalDataSource {
   }
 
   @override
+  _i7.Future<_i5.Box<dynamic>> init() => (super.noSuchMethod(
+          Invocation.method(#init, []),
+          returnValue: Future<_i5.Box<dynamic>>.value(_FakeBox_7<dynamic>()))
+      as _i7.Future<_i5.Box<dynamic>>);
+  @override
   _i7.Future<dynamic> getValue(String? key) =>
       (super.noSuchMethod(Invocation.method(#getValue, [key]),
           returnValue: Future<dynamic>.value()) as _i7.Future<dynamic>);
@@ -561,4 +568,41 @@ class MockHiveInterface extends _i1.Mock implements _i5.HiveInterface {
   void ignoreTypeId<T>(int? typeId) =>
       super.noSuchMethod(Invocation.method(#ignoreTypeId, [typeId]),
           returnValueForMissingStub: null);
+}
+
+/// A class which mocks [LocalRepository].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockLocalRepository extends _i1.Mock implements _i15.LocalRepository {
+  MockLocalRepository() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i7.Future<_i2.Either<_i8.Failure, List<_i9.NewsObject>>> getSavedNews() =>
+      (super.noSuchMethod(Invocation.method(#getSavedNews, []),
+              returnValue:
+                  Future<_i2.Either<_i8.Failure, List<_i9.NewsObject>>>.value(
+                      _FakeEither_0<_i8.Failure, List<_i9.NewsObject>>()))
+          as _i7.Future<_i2.Either<_i8.Failure, List<_i9.NewsObject>>>);
+  @override
+  _i7.Future<_i2.Either<_i8.Failure, bool>> getTheme() =>
+      (super.noSuchMethod(Invocation.method(#getTheme, []),
+              returnValue: Future<_i2.Either<_i8.Failure, bool>>.value(
+                  _FakeEither_0<_i8.Failure, bool>()))
+          as _i7.Future<_i2.Either<_i8.Failure, bool>>);
+  @override
+  _i7.Future<bool> toggleTheme() =>
+      (super.noSuchMethod(Invocation.method(#toggleTheme, []),
+          returnValue: Future<bool>.value(false)) as _i7.Future<bool>);
+  @override
+  _i7.Future<void> deleteSavedNews() =>
+      (super.noSuchMethod(Invocation.method(#deleteSavedNews, []),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i7.Future<void>);
+  @override
+  _i7.Future<void> saveNewsArticle(_i9.NewsObject? article) =>
+      (super.noSuchMethod(Invocation.method(#saveNewsArticle, [article]),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i7.Future<void>);
 }
