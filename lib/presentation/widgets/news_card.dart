@@ -11,8 +11,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 import 'package:timeago/timeago.dart%20';
+import 'package:url_launcher/url_launcher_string.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class NewsComponent extends ConsumerWidget {
@@ -25,7 +26,7 @@ class NewsComponent extends ConsumerWidget {
       padding: EdgeInsets.symmetric(vertical: 5.h),
       child: Slidable(
         endActionPane: ActionPane(
-            extentRatio: 0.75,
+            extentRatio: 0.3,
             motion: const StretchMotion(),
             children: [
               SlidableAction(
@@ -33,30 +34,15 @@ class NewsComponent extends ConsumerWidget {
                   locator<LocalRepository>().saveNewsArticle(item).then(
                       (value) => showTopSnackBar(
                           context,
-                          CustomSnackBar.success(
+                          const CustomSnackBar.success(
                               message: 'Article saved to local storage')));
                 },
                 label: 'Save',
                 backgroundColor: Colors.grey.shade600,
               ),
-              SlidableAction(
-                backgroundColor: Colors.grey.shade400,
-                onPressed: (context) {},
-                label: 'Open in browser',
-              ),
             ]),
         child: GestureDetector(
-          onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => NiuzzScaffold(
-                        showBottomBar: false,
-                        body: SafeArea(
-                          child: WebView(
-                            initialUrl: item.link,
-                          ),
-                        ),
-                      ))),
+          onTap: () => launchUrlString(item.link),
           child: Container(
             width: double.maxFinite,
             height: 75.h,

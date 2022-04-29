@@ -35,8 +35,12 @@ class SavedNewsPage extends ConsumerWidget {
             height: 10.h,
           ),
           ref.watch(savedNewsProvider).when(
-              data: (data) => Column(
-                    children: data.map((e) => NewsComponent(e)).toList(),
+              data: (data) => data.fold(
+                    (l) => NiuzzText(
+                        'Error getting saved articles : ${l.message}'),
+                    (r) => Column(
+                      children: r.map((e) => NewsComponent(e)).toList(),
+                    ),
                   ),
               error: (err, stacktrace) => NiuzzText(
                   ' Error getting saved articles [$err: ,${Hive.box('database').get('saved_news')}}], $stacktrace'),

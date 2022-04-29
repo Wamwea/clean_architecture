@@ -4,10 +4,8 @@ import 'package:clean_architecture/domain/usecases/get_featured.dart';
 import 'package:clean_architecture/domain/usecases/get_news.dart';
 import 'package:clean_architecture/injector.dart';
 import 'package:dartz/dartz.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../data/repositories/local_repository_implementation.dart';
 import '../../domain/usecases/get_saved_news.dart';
 
 FutureProvider<Either<Failure, List<NewsObject>>> newsProvider =
@@ -20,7 +18,8 @@ FutureProvider<Either<Failure, List<NewsObject>>> featuredNewsProvider =
   return await locator<GetFeatured>().execute();
 });
 
-StreamProvider<List<NewsObject>> savedNewsProvider = StreamProvider(
-    (ref) => Stream.periodic(const Duration(seconds: 1), (count) {
-          return locator<GetSavedNews>().execute();
-        }).asyncMap((event) async => await event));
+StreamProvider<Either<Failure, List<NewsObject>>> savedNewsProvider =
+    StreamProvider(
+        (ref) => Stream.periodic(const Duration(seconds: 1), (count) {
+              return locator<GetSavedNews>().execute();
+            }).asyncMap((event) async => await event));

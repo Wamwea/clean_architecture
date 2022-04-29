@@ -8,7 +8,10 @@ class DarkMode extends StateNotifier<bool> {
   DarkMode() : super(true);
 
   getTheme() async {
-    state = await locator<LocalRepository>().getTheme();
+    var response = await locator<LocalRepository>().getTheme();
+    response.fold((l) {}, (r) {
+      state = r;
+    });
   }
 
   toggleDarkMode() async {

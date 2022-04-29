@@ -101,14 +101,12 @@ class NiuzzBottomBar extends StatelessWidget {
                                       child: NiuzzText('PROFILE PAGE'),
                                     ),
                                     showBottomBar: true))),
-                        child: Container(
-                          child: Center(
-                              child: Icon(
-                            Icons.account_circle_outlined,
-                            color: Colors.white,
-                            size: 30.r,
-                          )),
-                        ),
+                        child: Center(
+                            child: Icon(
+                          Icons.account_circle_outlined,
+                          color: Colors.white,
+                          size: 30.r,
+                        )),
                       ),
                     ),
                   ],
