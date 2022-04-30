@@ -1,7 +1,6 @@
 import 'package:clean_architecture/presentation/styling/styles.dart';
 import 'package:clean_architecture/presentation/styling/theme_provider.dart';
 import 'package:clean_architecture/presentation/views/home_page.dart';
-import 'package:clean_architecture/presentation/widgets/scaffold_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -22,7 +21,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
 
   void initializeApp() async {
     await ref.read(darkModeProvider.notifier).getTheme();
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => const HomeScreen()));
   }

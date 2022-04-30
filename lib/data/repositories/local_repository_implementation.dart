@@ -10,9 +10,14 @@ class LocalRepositoryImplementation extends LocalRepository {
   LocalRepositoryImplementation(this.dataSource);
 
   @override
-  Future<void> deleteSavedNews() {
-    // TODO: implement deleteSavedNews
-    throw UnimplementedError();
+  Future<Either<Failure, void>> deleteSavedNews(NewsObject article) async {
+    try {
+      await dataSource.removeValueFromList(
+          'saved_news', NewsModel.fromEntity(article).toMap(), 'link');
+      return const Right(null);
+    } catch (e) {
+      return const Left(DatabaseFailure('error deleting news article'));
+    }
   }
 
   @override
@@ -68,7 +73,6 @@ class LocalRepositoryImplementation extends LocalRepository {
           .toMap());
     }
     await dataSource.setValue('saved_news', getAsMap);
-    print(' Data has been added to db');
   }
 
   @override

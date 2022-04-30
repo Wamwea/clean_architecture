@@ -100,6 +100,13 @@ class NewsModel {
       link: link,
       imageUrl: imageUrl);
 
+  factory NewsModel.fromEntity(NewsObject entity) => NewsModel(
+        title: entity.title,
+        pubDate: entity.pubDate,
+        link: entity.link,
+        description: entity.description,
+        author: entity.author,
+      );
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;

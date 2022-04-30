@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:hive/hive.dart';
 
 import '../widgets/scaffold_widget.dart';
 import '../widgets/text_widget.dart';
@@ -38,12 +37,21 @@ class SavedNewsPage extends ConsumerWidget {
               data: (data) => data.fold(
                     (l) => NiuzzText(
                         'Error getting saved articles : ${l.message}'),
-                    (r) => Column(
-                      children: r.map((e) => NewsComponent(e)).toList(),
-                    ),
+                    (r) {
+                      r.sort((a, b) => b.pubDate.microsecondsSinceEpoch
+                          .compareTo(a.pubDate.microsecondsSinceEpoch));
+                      return Column(
+                        children: r
+                            .map((e) => NewsComponent(
+                                  e,
+                                  isLocal: true,
+                                ))
+                            .toList(),
+                      );
+                    },
                   ),
-              error: (err, stacktrace) => NiuzzText(
-                  ' Error getting saved articles [$err: ,${Hive.box('database').get('saved_news')}}], $stacktrace'),
+              error: (err, stacktrace) =>
+                  NiuzzText(' Error getting saved articles [$err]'),
               loading: () => const SpinKitChasingDots(
                     color: Colors.pink,
                   ))

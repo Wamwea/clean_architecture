@@ -3,13 +3,14 @@ import 'package:clean_architecture/domain/entities/news_object.dart';
 import 'package:clean_architecture/injector.dart';
 import 'package:clean_architecture/presentation/provider/news_provider.dart';
 import 'package:clean_architecture/presentation/styling/styles.dart';
-import 'package:clean_architecture/presentation/widgets/scaffold_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:clean_architecture/presentation/widgets/text_widget.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../domain/repositories/local_repository.dart';
 
@@ -19,17 +20,7 @@ class FeaturedNewsCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
-      onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => NiuzzScaffold(
-                    showBottomBar: false,
-                    body: SafeArea(
-                      child: WebView(
-                        initialUrl: item.link,
-                      ),
-                    ),
-                  ))),
+      onTap: () => launchUrlString(item.link),
       child: ClipRRect(
         borderRadius: BorderRadius.all(Radius.circular(10.r)),
         child: Container(
@@ -78,6 +69,14 @@ class FeaturedNewsCard extends ConsumerWidget {
                                   await locator<LocalRepository>()
                                       .saveNewsArticle(item);
                                   ref.refresh(savedNewsProvider);
+                                  showTopSnackBar(
+                                      context,
+                                      const CustomSnackBar.success(
+                                          message:
+                                              'Article saved to local storage'),
+                                      showOutAnimationDuration: Duration.zero,
+                                      displayDuration:
+                                          const Duration(seconds: 1));
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(

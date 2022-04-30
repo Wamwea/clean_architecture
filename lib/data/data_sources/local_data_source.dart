@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:clean_architecture/domain/entities/news_object.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 
@@ -9,14 +8,19 @@ import '../exceptions.dart';
 abstract class LocalDataSource {
   Future<Box> init();
   Future<dynamic> getValue(String key);
-  Future<void> updateValue(String key, dynamic value);
-  Future<void> setValue(String key, dynamic value);
+  Future<void> removeValueFromList(
+      String key, dynamic value, String identifier);
+  Future<void> setValue(
+    String key,
+    dynamic value,
+  );
 }
 
 class LocalDataSourceImplementation implements LocalDataSource {
   HiveInterface database;
   LocalDataSourceImplementation({required this.database});
 
+  @override
   Future<Box> init() async {
     var box = await database.openBox('database');
     return box;
@@ -39,7 +43,7 @@ class LocalDataSourceImplementation implements LocalDataSource {
     try {
       await box.put(key, value);
       if (kDebugMode) {
-        print('Value : ${value.toString()} has been set for key $key');
+        log('Value : ${value.toString()} has been set for key $key');
       }
     } catch (e) {
       throw DatabaseException();
@@ -47,8 +51,24 @@ class LocalDataSourceImplementation implements LocalDataSource {
   }
 
   @override
-  Future<void> updateValue(String key, value) {
-    // TODO: implement updateValue
-    throw UnimplementedError();
+  Future<void> removeValueFromList(
+      String key, dynamic value, String identifier) async {
+    try {
+      var box = await init();
+      var boxResult = await box.get(key);
+      log('RESULE: $boxResult');
+      boxResult =
+          boxResult.map((value) => Map<String, dynamic>.from(value)).toList();
+      log('Results : ${boxResult[0][identifier]}');
+      var newList = boxResult
+          .where((element) => element[identifier] != value[identifier])
+          .toList();
+      log('REMOVED  length: ${newList.length}');
+      await box.put(key, newList);
+      log('Result: ${box.get(key)}');
+    } catch (e) {
+      log('Error $e');
+      throw DatabaseException();
+    }
   }
 }

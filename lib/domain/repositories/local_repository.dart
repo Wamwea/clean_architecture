@@ -7,6 +7,6 @@ abstract class LocalRepository {
   Future<Either<Failure, List<NewsObject>>> getSavedNews();
   Future<Either<Failure, bool>> getTheme();
   Future<bool> toggleTheme();
-  Future<void> deleteSavedNews();
+  Future<void> deleteSavedNews(NewsObject article);
   Future<void> saveNewsArticle(NewsObject article);
 }
